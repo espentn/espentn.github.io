@@ -180,6 +180,5 @@ while True:
         playerpos[0]-=5
     if keys[3]:
         playerpos[0]+=5
-    print(playerpos)
     frame_count += 1
     fpsClock.tick(FPS)

@@ -132,7 +132,7 @@ while True:
   frame_count += 1
   fpsClock.tick(FPS)
 
-#Show winner
+#Show winner of game
 screen.fill(0)
 winner_screen(winner, minutes, seconds)
 
