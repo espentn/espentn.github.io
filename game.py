@@ -59,6 +59,28 @@ def main_menu():
 
 show_menu = True
 
+def show_players():
+	screen.fill(0)
+	player1 = pygame.image.load("c:\\Users\\io220\\Documents\\Privat\\Python\\Spring break party game\\man_espen.png")
+
+	screen.blit(player1, (width/2, 20))
+	pygame.display.update()
+
+	player = player1
+	while True:
+		event = pygame.event.poll()
+		if event.type == pygame.KEYDOWN:
+			if event.key == pygame.K_e:
+				player = player1
+				break
+			elif event.key == pygame.K_q:
+				pygame.quit()
+				sys.exit()
+		elif event.type == QUIT:
+			pygame.quit()
+			sys.exit()
+	return player
+
 def winner_screen(pos, minutt, sec):
     player1_win = pygame.image.load("c:\\Users\\io220\\Documents\\Privat\\Python\\Spring break party game\\Spiller-1-vant.png").convert_alpha()
     player1_win = pygame.transform.scale(player1_win, (800, 81*2))
@@ -81,7 +103,9 @@ show_winnerscreen = True
 while True:
   if show_menu:
     main_menu()
-    pygame.time.delay(500)
+    show_players()
+    player1 = show_players()
+ #   pygame.time.delay(1500)
     show_menu = False
 
   screen.fill(0)
