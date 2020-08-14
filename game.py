@@ -24,7 +24,7 @@ frame_count = 0
 frame_rate = FPS
 
 #Load images
-player1 = pygame.image.load("c:\\Users\\io220\\Documents\\Privat\\Python\\Spring break party game\\man.png")
+player1 = pygame.image.load("c:\\Users\\io220\\Documents\\Privat\\Python\\Spring break party game\\man2.png")
 player2 = pygame.image.load("c:\\Users\\io220\\Documents\\Privat\\Python\\Spring break party game\\woman.png")
 bar_image = pygame.image.load("c:\\Users\\io220\\Documents\\Privat\\Python\\Spring break party game\\bar.png")
 bar2_image = pygame.image.load("c:\\Users\\io220\\Documents\\Privat\\Python\\Spring break party game\\bar.png")
@@ -59,33 +59,46 @@ def main_menu():
 
 show_menu = True
 
+def get_names():
+  player1_name = input("Navn på spiller 1: ")
+  player2_name = input("Navn på spiller 2: ")
+
 def show_players():
-	screen.fill(0)
-	player_espen = pygame.image.load("c:\\Users\\io220\\Documents\\Privat\\Python\\Spring break party game\\man_espen.png")
-	player_tim = pygame.image.load("c:\\Users\\io220\\Documents\\Privat\\Python\\Spring break party game\\man.png")
+  screen.fill(0)
+  player_espen = pygame.image.load("c:\\Users\\io220\\Documents\\Privat\\Python\\Spring break party game\\man_espen2.png") 
+  player_andreas = pygame.image.load("c:\\Users\\io220\\Documents\\Privat\\Python\\Spring break party game\\man_andreas.png")
+  player_tim = pygame.image.load("c:\\Users\\io220\\Documents\\Privat\\Python\\Spring break party game\\man_tim.png")
+  player_thea = pygame.image.load("c:\\Users\\io220\\Documents\\Privat\\Python\\Spring break party game\\woman_thea.png")
+  player_espen = pygame.transform.scale(player_espen, (300, 300))
+  player_andreas = pygame.transform.scale(player_andreas, (300, 300))
+  player_tim = pygame.transform.scale(player_tim, (300, 300))
+  player_thea = pygame.transform.scale(player_thea, (300, 300))
+  screen.blit(player_espen, (300, 200))
+  screen.blit(player_andreas, (600, 200))
+  screen.blit(player_tim, (900, 200))
+  screen.blit(player_thea, (300, 500))
 
-	screen.blit(player_espen, (300, 200))
-	screen.blit(player_tim, (600, 200))
+  pygame.display.update()
 
-	pygame.display.update()
-
-	player = player_espen
-	while True:
-		event = pygame.event.poll()
-		if event.type == pygame.KEYDOWN:
-			if event.key == pygame.K_e:
-				player = player_espen
-				break
-			elif event.key == pygame.K_t:
-				player = player_tim
-				break
-			elif event.key == pygame.K_q:
-				pygame.quit()
-				sys.exit()
-		elif event.type == QUIT:
-			pygame.quit()
-			sys.exit()
-	return player
+  player = player_espen
+  while True:
+  	event = pygame.event.poll()
+  	if event.type == pygame.KEYDOWN:
+  		if event.key == pygame.K_e:
+  				player = player_espen
+  				break
+  		elif event.key == pygame.K_a:
+  			player = player_andreas
+  			break
+      #elif event.key == pygame.K_t:
+       # player = player_tim
+  		elif event.key == pygame.K_q:
+  			pygame.quit()
+  			sys.exit()
+  	elif event.type == QUIT:
+  		pygame.quit()
+  		sys.exit()
+  return player
 
 def winner_screen(pos, minutt, sec):
     player1_win = pygame.image.load("c:\\Users\\io220\\Documents\\Privat\\Python\\Spring break party game\\Spiller-1-vant.png").convert_alpha()
@@ -105,6 +118,13 @@ def winner_screen(pos, minutt, sec):
 
 show_winnerscreen = True
 
+#Start music
+pygame.mixer.music.load('musikk.mp3')
+pygame.mixer.music.play(0)
+
+player1_name = input("Navn på spiller 1: ")
+player2_name = input("Navn på spiller 2: ")
+
 #Main game loop
 while True:
   if show_menu:
@@ -114,7 +134,7 @@ while True:
  #   pygame.time.delay(1500)
     show_menu = False
 
-  screen.fill(0)
+  screen.fill(1)
 
   #Calculate elapsed time
   total_seconds = frame_count // frame_rate
@@ -162,8 +182,18 @@ while True:
   frame_count += 1
   fpsClock.tick(FPS)
 
+#Stop music
+pygame.mixer.music.stop()
+
+# effect = pygame.mixer.Sound('tim.m4a')
+# effect.play()
 #Show winner of game
 screen.fill(0)
 winner_screen(winner, minutes, seconds)
+
+f = open("Resultater.txt", 'a')
+if winner == 0:
+  f.write("{} {}:{} \n".format(player1_name, minutes, seconds))
+  f.close()
 
 pygame.time.delay(3000)
